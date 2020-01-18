@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<title>Acordes</title>
+	<style>
+		*{
+			padding: 0px;
+			margin: 0px;
+		}
+		.header{
+			width: 100%;
+			height: 100px;
+			display: flex;
+			font-size: 20pt;
+			align-items: center;
+			justify-content: center;
+			flex-direction: column;
+			color: #fff;
+			box-shadow: 0px 0px 10px #999;
+
+
+
+			/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#fc3a00+0,fc3a00+51,000000+100&0.65+50,0+100 */
+background: -moz-linear-gradient(left,  rgba(252,58,0,0.65) 0%, rgba(252,58,0,0.65) 50%, rgba(252,58,0,0.64) 51%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  rgba(252,58,0,0.65) 0%,rgba(252,58,0,0.65) 50%,rgba(252,58,0,0.64) 51%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  rgba(252,58,0,0.65) 0%,rgba(252,58,0,0.65) 50%,rgba(252,58,0,0.64) 51%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a6fc3a00', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+
+
+
+
+
+
+			
+		}
+		.t{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 20pt;
+		}
+		.st{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 10pt;
+		}
+		.aut{
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 10pt;
+		}
+		.container{
+			width: 100%;
+			display: flex;
+			flex-wrap: wrap;
+			align-items: center;
+			justify-content: center;
+			padding: 10px;
+			box-sizing: border-box;
+		}
+		.braco{
+			width: 150px;
+			height: 250px;
+			border:1px solid #999;
+			box-shadow: 0px 0px 10px #000;
+			margin: 20px;
+			position: relative;
+			background: #770000;
+		}
+		.header_box{
+			width: 100%;
+			height: 40px;
+			background: #fff;
+			position: relative;
+			
+		}
+		
+		.name_acorde{
+			width: 100%;
+			height: 25px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: bold;
+		}
+		.mark_cordas{
+			width: 100%;
+			height: 15px;
+			background: green;
+			display: flex;
+			flex-wrap: wrap;
+		}
+		.xo{
+			width: 21px;
+			height: 100%;
+			background: #000;
+			color: #fff;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 15pt;
+			font-weight: bold;
+		}
+
+
+		.body_box{
+			width: 100%;
+			height: 210px;
+			position: relative;
+		}
+		.cordas{
+			width: 3px;
+			height:100%;
+			position: absolute;
+			top: 0px;
+			background: #7a7a7a;
+			box-shadow: 0px 0px 10px #000;
+			z-index: 10;
+
+		}
+		.traste{
+			width: 100%;
+			height:3px;
+			position: absolute;
+			background: #ccc;
+			box-shadow: 0px 0px 10px #000;
+			z-index: 5;
+
+
+		}
+		.box_grade{
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			
+			display: flex;
+
+		}
+		.grade_notas{
+			width:21px;
+			height: 100%;
+				
+		}
+		.casa{
+			width: 100%;
+			height: 40px;
+			
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+		.dedo{
+			width: 20px;
+			height: 20px;
+			border-radius: 10px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			z-index: 3;
+		}
+		
+		.dedo_ativo{
+			width: 20px;
+			height: 20px;
+			border-radius: 10px;
+			background: #fff;
+			box-shadow: 0px 0px 10px #000;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			z-index: 15;
+		}
+	</style>
+</head>
+<body>
+	<div class="header">
+		<div class="t">ACORDES</div>
+		<div class="st">BendMusic</div>
+		<div class="aut">Everton Camargo</div>
+	</div>
+	<div class="container" id="cont1"> 
+	
+	</div>
+	
+</body>
+
+	<script>
+
+		const container = document.getElementById('cont1');
+		const posicoes = ['1','2','3'];
+
+		function acordes(pos,title,mark_c){
+
+			const braco = document.createElement('div');
+			braco.setAttribute('class','braco');
+			let margin = 21;
+			let marginTraste = 40;
+			let texto_header;
+			let mark_cord;
+
+			title == null? texto_header = '' : texto_header = title;
+			mark_c == null? mark_cord = ['','','','','',''] : mark_cord = mark_c;
+
+			const header_box = document.createElement('div');
+			header_box.setAttribute('class','header_box');
+
+				const name_acorde = document.createElement('div');
+				name_acorde.setAttribute('class','name_acorde');
+				name_acorde.innerHTML = texto_header;
+				header_box.appendChild(name_acorde);
+
+				const mark_cordas = document.createElement('div');
+				mark_cordas.setAttribute('class','mark_cordas');
+				header_box.appendChild(mark_cordas);
+
+					for (var mark = 8; mark >= 1; mark--) {
+						//console.log(mark);
+						const xo = document.createElement('div');
+						xo.setAttribute('class','xo');
+						if (mark ==1) {
+							xo.style.width = 12+'px';
+						}
+						if (mark == 8) {
+							xo.style.width = 12+'px';
+						}
+						if (mark == 2) {
+							xo.innerHTML = mark_cord[5];
+						}
+						if (mark == 3) {
+							xo.innerHTML = mark_cord[4];
+						}
+						if (mark == 4) {
+							xo.innerHTML = mark_cord[3];
+						}
+						if (mark == 5) {
+							xo.innerHTML = mark_cord[2];
+						}
+						if (mark == 6) {
+							xo.innerHTML = mark_cord[1];
+						}
+						if (mark == 7) {
+							xo.innerHTML = mark_cord[0];
+						}
+
+						
+						mark_cordas.appendChild(xo);
+
+					}
+
+
+
+
+
+
+					
+
+					
+
+					
+
+
+
+			braco.appendChild(header_box);
+
+			const body_box = document.createElement('div');
+			body_box.setAttribute('class','body_box');
+			braco.appendChild(body_box);
+
+
+
+			for (var tst = 5; tst >= 1; tst--) {//trastes
+				const traste = document.createElement('div');
+				traste.setAttribute('class','traste');
+				traste.style.transform = 'translateY('+marginTraste+'px)';
+			
+				marginTraste = marginTraste+40;
+				body_box.appendChild(traste);
+			}
+
+			for (var i = 6 ; i >= 1; i--) {//cordas
+				//console.log(i);
+				const cordas = document.createElement('div');
+				cordas.setAttribute('class','cordas');
+				cordas.style.marginLeft = margin+'px';
+				
+
+				
+
+				margin = margin+21;
+				body_box.appendChild(cordas);
+			}
+
+			const box_grade = document.createElement('div');
+			box_grade.setAttribute('class','box_grade');
+			body_box.appendChild(box_grade);
+
+
+
+
+			let mg = 0;
+			let wi = 11;
+			for (var grade = 1; grade <= 8; grade++) {
+				const grade_notas = document.createElement('div');
+				grade_notas.setAttribute('class','grade_notas');
+				
+				//console.log(grade);
+				if (grade == 1) {
+					grade_notas.style.width = wi+'px';
+				}
+				if (grade == 8) {
+					grade_notas.style.width = wi+'px';
+					//grade_notas.style.background = 'green';
+				}
+
+
+				if (grade == 2) {
+					//grade_notas.style.background = 'green';
+
+					for (var icasa = 1; icasa <= 5; icasa++) {
+						const casa = document.createElement('div');
+						casa.setAttribute('class','casa');
+						grade_notas.appendChild(casa);
+							const dedo = document.createElement('div');
+							dedo.setAttribute('class','dedo');
+							dedo.setAttribute('data-dedo','6'+icasa);
+							dedo.setAttribute('id','6'+icasa);
+							casa.appendChild(dedo);
+
+							for (var iii = pos.length - 1; iii >= 0; iii--) {
+								if (pos[iii] == Number('6'+icasa)) {
+									dedo.setAttribute('class','dedo_ativo');
+								}
+							}
+					}
+					
+					
+				}
+
+				if (grade == 3) {
+					//grade_notas.style.background = 'green';
+
+					for (var icasa = 1; icasa <= 5; icasa++) {
+						const casa = document.createElement('div');
+						casa.setAttribute('class','casa');
+						grade_notas.appendChild(casa);
+							const dedo = document.createElement('div');
+							dedo.setAttribute('class','dedo');
+							dedo.setAttribute('data-dedo','5'+icasa);
+							dedo.setAttribute('id','5'+icasa);
+							casa.appendChild(dedo);
+
+							for (var iii = pos.length - 1; iii >= 0; iii--) {
+								if (pos[iii] == Number('5'+icasa)) {
+									dedo.setAttribute('class','dedo_ativo');
+								}
+							}
+					}
+					
+					
+				}
+
+
+				if (grade == 4) {
+					//grade_notas.style.background = 'green';
+
+					for (var icasa = 1; icasa <= 5; icasa++) {
+						const casa = document.createElement('div');
+						casa.setAttribute('class','casa');
+						grade_notas.appendChild(casa);
+							const dedo = document.createElement('div');
+							dedo.setAttribute('class','dedo');
+							dedo.setAttribute('data-dedo','4'+icasa);
+							dedo.setAttribute('id','4'+icasa);
+								
+							casa.appendChild(dedo);
+
+							for (var iii = pos.length - 1; iii >= 0; iii--) {
+								if (pos[iii] == Number('4'+icasa)) {
+									dedo.setAttribute('class','dedo_ativo');
+									
+								}
+							}
+					}
+					
+					
+				}
+
+				if (grade == 5) {
+					//grade_notas.style.background = 'green';
+
+					for (var icasa = 1; icasa <= 5; icasa++) {
+						const casa = document.createElement('div');
+						casa.setAttribute('class','casa');
+						grade_notas.appendChild(casa);
+							const dedo = document.createElement('div');
+							dedo.setAttribute('class','dedo');
+							dedo.setAttribute('data-dedo','3'+icasa);
+							dedo.setAttribute('id','3'+icasa);
+							casa.appendChild(dedo);
+
+							for (var iii = pos.length - 1; iii >= 0; iii--) {
+								if (pos[iii] == Number('3'+icasa)) {
+									dedo.setAttribute('class','dedo_ativo');
+								}
+							}
+					}
+					
+					
+				}
+
+				if (grade == 6) {
+					//grade_notas.style.background = 'green';
+
+					for (var icasa = 1; icasa <= 5; icasa++) {
+						const casa = document.createElement('div');
+						casa.setAttribute('class','casa');
+						grade_notas.appendChild(casa);
+							const dedo = document.createElement('div');
+							dedo.setAttribute('class','dedo');
+							dedo.setAttribute('data-dedo','2'+icasa);
+							dedo.setAttribute('id','2'+icasa);
+							casa.appendChild(dedo);
+
+							for (var iii = pos.length - 1; iii >= 0; iii--) {
+								if (pos[iii] == Number('2'+icasa)) {
+									dedo.setAttribute('class','dedo_ativo');
+								}
+							}
+
+					}
+					
+					
+				}
+
+				if (grade == 7) {
+					//grade_notas.style.background = 'green';
+
+					for (var icasa = 1; icasa <= 5; icasa++) {
+						const casa = document.createElement('div');
+						casa.setAttribute('class','casa');
+						grade_notas.appendChild(casa);
+							const dedo = document.createElement('div');
+							dedo.setAttribute('class','dedo');
+							dedo.setAttribute('data-dedo','1'+icasa);
+							dedo.setAttribute('id','1'+icasa);
+							casa.appendChild(dedo);
+
+							for (var iii = pos.length - 1; iii >= 0; iii--) {
+								if (pos[iii] == Number('1'+icasa)) {
+									dedo.setAttribute('class','dedo_ativo');
+								}
+							}
+					}
+					
+					
+				}
+
+				mg = mg+21;
+				box_grade.appendChild(grade_notas);
+		
+			}
+
+			/*let dedos = document.querySelectorAll('.dedo');
+
+			for (var i = pos.length - 1; i >= 0; i--) {
+				//console.log(pos[i]);
+				for (var ii = dedos.length - 1; ii >= 0; ii--) {
+					//console.log(dedos[ii].id);
+					if (pos[i] == Number(dedos[ii].id)){
+						let n = Number(dedos[ii].id);
+						document.getElementById(n).style.background = "yellow";
+					}
+				}
+			}*/
+			
+
+			
+
+			container.appendChild(braco);
+		}
+
+		const acordes_contados = [
+			{acorde:'C',mark_corda:['X','','','','','O'],posicao:[21,42,53]},
+			{acorde:'Cm',mark_corda:['X','','','','',''],posicao:[13,23,33,43,53,24,35,45]},
+			{acorde:'D',mark_corda:['X','X','O','','',''],posicao:[12,23,32]},
+			{acorde:'Dm',mark_corda:['X','X','O','','',''],posicao:[11,23,32]},
+			{acorde:'E',mark_corda:['O','','','','O','O'],posicao:[52,42,31]},
+			{acorde:'Em',mark_corda:['O','','','O','O','O'],posicao:[52,42]},
+			{acorde:'F',mark_corda:['','','','','',''],posicao:[11,21,31,41,51,61,53,43,32]},
+			{acorde:'Fm',mark_corda:['','','','','',''],posicao:[11,21,31,41,51,61,53,43]},
+			{acorde:'G',mark_corda:['','','O','O','O',''],posicao:[63,52,13]},
+			{acorde:'Gm',mark_corda:['','','','','',''],posicao:[13,23,33,43,53,63,55,45]},
+			{acorde:'A',mark_corda:['X','O','','','','O'],posicao:[22,32,42]},
+			{acorde:'Am',mark_corda:['X','O','','','','O'],posicao:[21,32,42]},
+			{acorde:'B',mark_corda:['X','','','','',''],posicao:[12,22,32,42,52,24,34,44]},
+			{acorde:'Bm',mark_corda:['X','','','','',''],posicao:[12,22,32,42,52,23,34,44]}
+			
+		]
+
+		acordes_contados.map((dados,indece) => {
+			acordes(dados.posicao, dados.acorde, dados.mark_corda);
+		});
+
+	</script>
+</html>
